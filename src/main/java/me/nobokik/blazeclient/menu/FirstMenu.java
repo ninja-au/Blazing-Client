@@ -5,12 +5,12 @@ import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiWindowFlags;
 import me.nobokik.blazeclient.gui.ImguiLoader;
 import me.nobokik.blazeclient.gui.Renderable;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
-import net.minecraft.client.gui.screen.option.OptionsScreen;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.gui.screens.MultiplayerScreen;
+import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.sounds.SoundEvents;
 
 import static me.nobokik.blazeclient.Client.mc;
 import static org.lwjgl.stb.STBImage.stbi_image_free;
@@ -98,7 +98,7 @@ public class FirstMenu implements Renderable {
         ImGui.getStyle().setButtonTextAlign(0.5f, 0.5f);
         ImGui.getStyle().setFrameRounding(75f);
         ImGui.pushFont(ImguiLoader.getFontAwesome64());
-        ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, (float) percent);
+        ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, (float) percent);
         ImGui.pushStyleColor(ImGuiCol.Button, 0.07f, 0.07f, 0.11f, (float) (0.65f * percent));
         ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.09f, 0.09f, 0.15f, (float) (0.65f * percent));
         ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0.1f, 0.1f, 0.16f, (float) (0.8f * percent));

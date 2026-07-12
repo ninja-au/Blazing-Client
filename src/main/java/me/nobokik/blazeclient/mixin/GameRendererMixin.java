@@ -4,14 +4,14 @@ import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.mod.GeneralSettings;
 import me.nobokik.blazeclient.mod.mods.HurtCamMod;
 import me.nobokik.blazeclient.mod.mods.ZoomMod;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RotationAxis;
+import net.minecraft.client.renderer.Camera;
+import net.minecraft.client.renderer.GameRenderer;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.PlayerEntity;
+import net.minecraft.world.phys.Direction;
+import net.minecraft.world.phys.MathHelper;
+import net.minecraft.world.phys.RotationAxis;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,7 +29,7 @@ public class GameRendererMixin {
     }
 
     @Inject(method = "tiltViewWhenHurt", at = @At("HEAD"), cancellable = true)
-    public void disableHurtCam(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+    public void disableHurtCam(PoseStack matrices, float tickDelta, CallbackInfo ci) {
         if (Client.modManager().getMod(HurtCamMod.class).isEnabled() && Client.modManager().getMod(HurtCamMod.class).disableHurtcam.isEnabled()) ci.cancel();
     }
 
@@ -47,8 +47,8 @@ public class GameRendererMixin {
         cir.setReturnValue(Client.modManager().getMod(ZoomMod.class).getFOV(defaultFOV));
     }
 
-    @Inject(method = "bobView", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/MatrixStack;translate(FFF)V"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void minimalViewBob(MatrixStack matrices, float tickDelta, CallbackInfo ci, PlayerEntity playerEntity, float f, float g, float h) {
+    @Inject(method = "bobView", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/math/PoseStack;translate(FFF)V"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    private void minimalViewBob(PoseStack matrices, float tickDelta, CallbackInfo ci, PlayerEntity playerEntity, float f, float g, float h) {
         if (Client.modManager().getMod(GeneralSettings.class).minimalViewBob.isEnabled()) {
             g /= 2;
             h /= 2;

@@ -8,9 +8,9 @@ import me.nobokik.blazeclient.mod.Mod;
 import me.nobokik.blazeclient.mod.setting.settings.BooleanSetting;
 import me.nobokik.blazeclient.mod.setting.settings.ColorSetting;
 import me.nobokik.blazeclient.mod.setting.settings.KeybindSetting;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.option.Perspective;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import org.lwjgl.glfw.GLFW;
 
 public class FreelookMod extends Mod {
@@ -91,7 +91,7 @@ public class FreelookMod extends Mod {
     }
 
     private void setPerspective(Perspective perspective) {
-        MinecraftClient.getInstance().options.setPerspective(perspective);
+        Minecraft.getInstance().options.setPerspective(perspective);
     }
 
     public boolean consumeRotation(double dx, double dy) {
@@ -101,8 +101,8 @@ public class FreelookMod extends Mod {
         if (!invert.isEnabled())
             dy = -dy;
 
-        if (MinecraftClient.getInstance().options.getPerspective().isFrontView()
-                || MinecraftClient.getInstance().options.getPerspective().isFirstPerson())
+        if (Minecraft.getInstance().options.getPerspective().isFrontView()
+                || Minecraft.getInstance().options.getPerspective().isFirstPerson())
             dy *= -1;
 
         yaw += dx * 0.15F;

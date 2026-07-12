@@ -8,7 +8,7 @@ import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.api.helpers.FPSHelper;
 import me.nobokik.blazeclient.mod.GeneralSettings;
 import net.minecraft.SharedConstants;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static me.nobokik.blazeclient.Client.mc;
 
-@Mixin(MinecraftClient.class)
+@Mixin(Minecraft.class)
 public class MinecraftClientMixin {
     @Shadow
     private static int currentFps;

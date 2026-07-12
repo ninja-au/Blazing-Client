@@ -2,7 +2,7 @@ package me.nobokik.blazeclient.api.font;
 
 import java.awt.Color;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.opengl.GlStateManager;
 import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.mod.GeneralSettings;
 

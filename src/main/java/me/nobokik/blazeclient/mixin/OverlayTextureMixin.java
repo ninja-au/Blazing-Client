@@ -4,7 +4,7 @@ import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.api.event.events.OverlayReloadListener;
 import me.nobokik.blazeclient.mod.mods.HitColorMod;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.renderer.OverlayTexture;
 import net.minecraft.client.texture.DynamicTexture;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;

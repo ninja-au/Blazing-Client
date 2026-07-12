@@ -1,7 +1,7 @@
 package me.nobokik.blazeclient.mixin;
 
 import net.minecraft.client.gui.LogoDrawer;
-import net.minecraft.client.util.math.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

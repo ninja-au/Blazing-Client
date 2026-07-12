@@ -15,7 +15,7 @@ import me.nobokik.blazeclient.mod.setting.settings.KeybindSetting;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
-import static me.nobokik.blazeclient.menu.ModSettings.text;
+import static me.nobokik.blazeclient.menu.ModSettings.Component;
 
 public class GeneralSettings extends Mod {
     public final ColorSetting mainColor = new ColorSetting("Main Color", this, new JColor(0.90f, 0.27f, 0.33f), false);
@@ -29,7 +29,7 @@ public class GeneralSettings extends Mod {
     public final BooleanSetting lowFire = new BooleanSetting("Low Fire", this, false);
     public final BooleanSetting numericalPing = new BooleanSetting("Numerical Ping", this, false);
     public final BooleanSetting smallPing = new BooleanSetting("Small Ping", this, false);
-    public final BooleanSetting msPing = new BooleanSetting("Ping MS text", this, false);
+    public final BooleanSetting msPing = new BooleanSetting("Ping MS Component", this, false);
     public final BooleanSetting hourFormat = new BooleanSetting("24 Hour Format", this, true);
 
     public final BooleanSetting showInChat = new BooleanSetting("Show Mods in Chat", this, true);
@@ -53,7 +53,7 @@ public class GeneralSettings extends Mod {
         double percent;
         if(p == null) percent = 1;
         else percent = p[0];
-        text("General Settings", 1f);
+        Component("General Settings", 1f);
 
         ImGui.getStyle().setChildRounding(15f);
         ImGui.getStyle().setWindowPadding(15f, 15f);
@@ -74,21 +74,21 @@ public class GeneralSettings extends Mod {
         numericalPing.render();
         smallPing.render();
         ImGui.unindent(30f);
-        text("Mods", 1f);
+        Component("Mods", 1f);
         ImGui.indent(30f);
         showInChat.render();
         showInInventory.render();
         ImGui.unindent(30f);
-        text("Chat", 1f);
+        Component("Chat", 1f);
         ImGui.indent(30f);
         unlimitedChatHistory.render();
         stackChatMessages.render();
         ImGui.unindent(30f);
-        text("Darken Background", 1f);
+        Component("Darken Background", 1f);
         ImGui.indent(30f);
         darkenInventory.render();
         ImGui.unindent(30f);
-        text("Discord", 1f);
+        Component("Discord", 1f);
         ImGui.indent(30f);
         enableDiscordRPC.render();
         showAddress.render();

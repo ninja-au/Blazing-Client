@@ -9,8 +9,8 @@ import me.nobokik.blazeclient.mod.Mod;
 import me.nobokik.blazeclient.mod.setting.settings.BooleanSetting;
 import me.nobokik.blazeclient.mod.setting.settings.ColorSetting;
 import me.nobokik.blazeclient.mod.setting.settings.NumberSetting;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.Identifier;
 
 public class HitboxMod extends Mod {
     public final ColorSetting boxColor = new ColorSetting("Box Color", this, new JColor(1f,1f,1f), true);

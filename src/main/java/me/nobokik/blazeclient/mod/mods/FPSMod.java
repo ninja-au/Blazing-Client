@@ -18,8 +18,8 @@ import me.nobokik.blazeclient.mod.setting.settings.BooleanSetting;
 import me.nobokik.blazeclient.mod.setting.settings.ColorSetting;
 import me.nobokik.blazeclient.mod.setting.settings.ModeSetting;
 import me.nobokik.blazeclient.mod.setting.settings.NumberSetting;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 
 import static me.nobokik.blazeclient.Client.modManager;
 import static me.nobokik.blazeclient.api.util.RenderUtils.isRenderable;
@@ -27,8 +27,8 @@ import static me.nobokik.blazeclient.api.util.RenderUtils.isRenderable;
 public class FPSMod extends Mod implements Renderable {
     private boolean firstFrame = true;
     public final ColorSetting background = new ColorSetting("Background Color", this, new JColor(0f, 0f, 0f, 0.75f), true);
-    public final ColorSetting text = new ColorSetting("Text Color", this, new JColor(1f, 1f, 1f), false);
-    public final BooleanSetting textShadow = new BooleanSetting("Text Shadow", this, true);
+    public final ColorSetting Component = new ColorSetting("Component Color", this, new JColor(1f, 1f, 1f), false);
+    public final BooleanSetting textShadow = new BooleanSetting("Component Shadow", this, true);
     public final NumberSetting scale = new NumberSetting("Scale", this, 1, 0.5, 2, 0.1);
     public final NumberSetting width = new NumberSetting("Width", this, 150, 100, 250, 1);
     public final NumberSetting height = new NumberSetting("Height", this, 50, 32, 100, 1);
@@ -83,8 +83,8 @@ public class FPSMod extends Mod implements Renderable {
             c = background.getColor().jBrighter().getFloatColor();
             ImGui.pushStyleColor(ImGuiCol.WindowBg, c[0], c[1], c[2], c[3]);
         }
-        c = text.getColor().getFloatColor();
-        ImGui.pushStyleColor(ImGuiCol.Text, c[0], c[1], c[2], c[3]);
+        c = Component.getColor().getFloatColor();
+        ImGui.pushStyleColor(ImGuiCol.Component, c[0], c[1], c[2], c[3]);
 
         if(this.updatedPos.x != 0) {
             this.position.x = this.position.x + this.updatedPos.x;
@@ -105,18 +105,18 @@ public class FPSMod extends Mod implements Renderable {
         if(roundedCorners.isEnabled()) ImGui.getStyle().setWindowRounding(16f * scale.getFValue());
         ImGui.begin(this.getName(), imGuiWindowFlags);
 
-        String text;
-        if(backgroundEnabled.isEnabled()) text = FPSHelper.getFPS() + " FPS";
-        else text = "[" + FPSHelper.getFPS() + " FPS]";
+        String Component;
+        if(backgroundEnabled.isEnabled()) Component = FPSHelper.getFPS() + " FPS";
+        else Component = "[" + FPSHelper.getFPS() + " FPS]";
 
         float windowWidth = ImGui.getWindowSize().x;
         float windowHeight = ImGui.getWindowSize().y;
-        float textWidth   = ImGui.calcTextSize(text).x;
-        float textHeight   = ImGui.calcTextSize(text).y;
+        float textWidth   = ImGui.calcTextSize(Component).x;
+        float textHeight   = ImGui.calcTextSize(Component).y;
 
         ImGui.setCursorPos((windowWidth - textWidth) * 0.5f, (windowHeight - textHeight) * 0.5f);
-        if(textShadow.isEnabled()) UI.shadowText(text, 32, c[0], c[1], c[2], c[3]);
-        else ImGui.text(text);
+        if(textShadow.isEnabled()) UI.shadowText(Component, 32, c[0], c[1], c[2], c[3]);
+        else ImGui.text(Component);
 
         ImGui.popStyleColor(3);
         ImGui.popFont();
@@ -130,7 +130,7 @@ public class FPSMod extends Mod implements Renderable {
             ImGui.pushStyleColor(ImGuiCol.Button, 0.95f, 0.55f, 0.66f, 0f);
             ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.95f, 0.55f, 0.66f, 0f);
             ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0.95f, 0.55f, 0.66f, 0f);
-            ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, 0.9f);
+            ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, 0.9f);
             ImGui.setCursorPos(0, 0);
             if (ImGui.button("\uF013", 22f, 22f)) {
                 ModSettings.getInstance().mod = this;

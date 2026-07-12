@@ -1,6 +1,6 @@
 package me.nobokik.blazeclient.api.hook;
 
-import net.minecraft.client.gui.hud.ChatHudLine;
+import net.minecraft.client.multiplayer.chat.GuiMessage.Line;
 
 import java.util.List;
 

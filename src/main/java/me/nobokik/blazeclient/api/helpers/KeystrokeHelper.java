@@ -4,27 +4,21 @@ import imgui.ImFont;
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiCol;
-import lombok.Getter;
-import lombok.Setter;
 import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.api.font.JColor;
 import me.nobokik.blazeclient.gui.UI;
 import me.nobokik.blazeclient.mod.mods.KeystrokesMod;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.InputConstants;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class KeystrokeHelper {
-    @Getter @Setter
     private int key;
-    @Getter @Setter
     private String display;
-    @Getter @Setter
     private long pressTime;
-    @Getter @Setter
     private boolean pressed;
     public static List<KeystrokeHelper> list = new ArrayList<>();
     public KeystrokeHelper(int key, String display) {
@@ -50,13 +44,13 @@ public class KeystrokeHelper {
         if(pressed) {
             JColor bg = UI.blendColors(Client.modManager().getMod(KeystrokesMod.class).background.getColor(), Client.modManager().getMod(KeystrokesMod.class).pressedBackground.getColor(), (float) percent);
             bgF = bg.getFloatColor();
-            JColor text = UI.blendColors(Client.modManager().getMod(KeystrokesMod.class).text.getColor(), Client.modManager().getMod(KeystrokesMod.class).pressedText.getColor(), (float) percent);
-            textF = text.getFloatColor();
+            JColor Component = UI.blendColors(Client.modManager().getMod(KeystrokesMod.class).Component.getColor(), Client.modManager().getMod(KeystrokesMod.class).pressedText.getColor(), (float) percent);
+            textF = Component.getFloatColor();
         } else {
             JColor bg = UI.blendColors(Client.modManager().getMod(KeystrokesMod.class).pressedBackground.getColor(), Client.modManager().getMod(KeystrokesMod.class).background.getColor(), (float) percent);
             bgF = bg.getFloatColor();
-            JColor text = UI.blendColors(Client.modManager().getMod(KeystrokesMod.class).pressedText.getColor(), Client.modManager().getMod(KeystrokesMod.class).text.getColor(), (float) percent);
-            textF = text.getFloatColor();
+            JColor Component = UI.blendColors(Client.modManager().getMod(KeystrokesMod.class).pressedText.getColor(), Client.modManager().getMod(KeystrokesMod.class).Component.getColor(), (float) percent);
+            textF = Component.getFloatColor();
         }
 
         ImVec2 pos = ImGui.getCursorPos();
@@ -77,7 +71,7 @@ public class KeystrokeHelper {
         ImGui.pushFont(newFont);
         if(Client.modManager().getMod(KeystrokesMod.class).textShadow.isEnabled()) {
             ImGui.setCursorPos(pos.x + 32 * 0.07f, pos.y + 32 * 0.07f);
-            ImGui.pushStyleColor(ImGuiCol.Text, textF[0]/2, textF[1]/2, textF[2]/2, textF[3]);
+            ImGui.pushStyleColor(ImGuiCol.Component, textF[0]/2, textF[1]/2, textF[2]/2, textF[3]);
             ImGui.pushStyleColor(ImGuiCol.Button, bgF[0], bgF[1], bgF[2], 0f);
             ImGui.pushStyleColor(ImGuiCol.ButtonHovered, bgF[0], bgF[1], bgF[2], 0f);
             ImGui.pushStyleColor(ImGuiCol.ButtonActive, bgF[0], bgF[1], bgF[2], 0f);
@@ -91,7 +85,7 @@ public class KeystrokeHelper {
             ImGui.popStyleColor(4);
         }
         ImGui.setCursorPos(pos.x, pos.y);
-        ImGui.pushStyleColor(ImGuiCol.Text, textF[0], textF[1], textF[2], textF[3]);
+        ImGui.pushStyleColor(ImGuiCol.Component, textF[0], textF[1], textF[2], textF[3]);
         ImGui.pushStyleColor(ImGuiCol.Button, bgF[0], bgF[1], bgF[2], bgF[3]);
         ImGui.pushStyleColor(ImGuiCol.ButtonHovered, bgF[0], bgF[1], bgF[2], bgF[3]);
         ImGui.pushStyleColor(ImGuiCol.ButtonActive, bgF[0], bgF[1], bgF[2], bgF[3]);
@@ -109,4 +103,36 @@ public class KeystrokeHelper {
 
     }
     public void drawButton1() {}
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display;
+    }
+
+    public long getPressTime() {
+        return pressTime;
+    }
+
+    public void setPressTime(long pressTime) {
+        this.pressTime = pressTime;
+    }
+
+    public boolean isPressed() {
+        return pressed;
+    }
+
+    public void setPressed(boolean pressed) {
+        this.pressed = pressed;
+    }
 }

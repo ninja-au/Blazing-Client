@@ -1,7 +1,7 @@
 package me.nobokik.blazeclient.api.helpers;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
-import net.minecraft.item.ItemStack;
+import com.mojang.authlib.minecraft.client.Minecraft;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;

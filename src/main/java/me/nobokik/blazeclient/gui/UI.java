@@ -4,7 +4,6 @@ import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiCol;
 import me.nobokik.blazeclient.api.font.JColor;
-import net.minecraft.util.math.ColorHelper;
 
 public class UI {
     public static void shadowText(String text, int size, float r, float g, float b, float a) {

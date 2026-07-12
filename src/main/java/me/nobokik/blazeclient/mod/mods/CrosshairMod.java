@@ -11,7 +11,7 @@ import me.nobokik.blazeclient.mod.setting.Setting;
 import me.nobokik.blazeclient.mod.setting.settings.ColorSetting;
 import org.jetbrains.annotations.Nullable;
 
-import static me.nobokik.blazeclient.menu.ModSettings.text;
+import static me.nobokik.blazeclient.menu.ModSettings.Component;
 
 public class CrosshairMod extends Mod {
     public final ColorSetting color = new ColorSetting("Color", this, new JColor(1f,1f,1f,1f), true);

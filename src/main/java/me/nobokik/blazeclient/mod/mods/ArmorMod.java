@@ -19,8 +19,8 @@ import me.nobokik.blazeclient.mod.setting.settings.BooleanSetting;
 import me.nobokik.blazeclient.mod.setting.settings.ColorSetting;
 import me.nobokik.blazeclient.mod.setting.settings.ModeSetting;
 import me.nobokik.blazeclient.mod.setting.settings.NumberSetting;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 
 import static me.nobokik.blazeclient.Client.mc;
 import static me.nobokik.blazeclient.Client.modManager;
@@ -31,8 +31,8 @@ public class ArmorMod extends Mod implements Renderable {
     public final BooleanSetting showDura = new BooleanSetting("Durability", this, true);
     public final ModeSetting duraMode = new ModeSetting("Durability Mode", this, "Numbers", "Numbers", "Percentages");
     public final ModeSetting fontSetting = new ModeSetting("Font", this, "Minecraft", "Minecraft", "Dosis", "Mono");
-    public final ColorSetting textSetting = new ColorSetting("Text Color", this, new JColor(1f, 1f, 1f), false);
-    public final BooleanSetting textShadow = new BooleanSetting("Text Shadow", this, true);
+    public final ColorSetting textSetting = new ColorSetting("Component Color", this, new JColor(1f, 1f, 1f), false);
+    public final BooleanSetting textShadow = new BooleanSetting("Component Shadow", this, true);
     public final ModeSetting direction = new ModeSetting("Direction", this, "Vertical", "Vertical", "Horizontal");
 
     public boolean firstFrame = true;
@@ -121,7 +121,7 @@ public class ArmorMod extends Mod implements Renderable {
                 font = ImguiLoader.getMonoFont18();
             }
             for (int i = 0; i < 4; i++) {
-                String text = mc.player.getInventory().armor.get(3 - i).getDamage() != 0 ?
+                String Component = mc.player.getInventory().armor.get(3 - i).getDamage() != 0 ?
 
                         (duraMode.getMode().equals("Numbers") ?
                                 mc.player.getInventory().armor.get(3 - i).getMaxDamage() - mc.player.getInventory().armor.get(3 - i).getDamage() + "" :
@@ -131,20 +131,20 @@ public class ArmorMod extends Mod implements Renderable {
 
                 c = textSetting.getColor().getFloatColor();
 
-                ImGui.pushStyleColor(ImGuiCol.Text, c[0], c[1], c[2], c[3]);
+                ImGui.pushStyleColor(ImGuiCol.Component, c[0], c[1], c[2], c[3]);
                 ImGui.pushFont(font);
                 float oldScale = ImGui.getFont().getScale();
                 ImGui.getFont().setScale(oldScale * mc.options.getGuiScale().getValue());
 
                 float windowWidth = 22 * mc.options.getGuiScale().getValue();
                 float windowHeight = 22 * mc.options.getGuiScale().getValue();
-                float textWidth = ImGui.calcTextSize(text).x;
-                float textHeight = ImGui.calcTextSize(text).y;
+                float textWidth = ImGui.calcTextSize(Component).x;
+                float textHeight = ImGui.calcTextSize(Component).y;
 
                 ImGui.setCursorPos((windowWidth - textWidth) * 0.5f, (16 * mc.options.getGuiScale().getValue()) + (i * 16 * mc.options.getGuiScale().getValue() - ((windowHeight - textHeight) * 0.5f)));
 
-                if (textShadow.isEnabled()) UI.shadowText(text, 32, c[0], c[1], c[2], c[3]);
-                else ImGui.text(text);
+                if (textShadow.isEnabled()) UI.shadowText(Component, 32, c[0], c[1], c[2], c[3]);
+                else ImGui.text(Component);
                 ImGui.getFont().setScale(oldScale);
                 ImGui.popFont();
                 ImGui.popStyleColor(1);
@@ -159,7 +159,7 @@ public class ArmorMod extends Mod implements Renderable {
             ImGui.pushStyleColor(ImGuiCol.Button, 0.95f, 0.55f, 0.66f, 0f);
             ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.95f, 0.55f, 0.66f, 0f);
             ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0.95f, 0.55f, 0.66f, 0f);
-            ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, 0.9f);
+            ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, 0.9f);
             ImGui.setCursorPos(0, 0);
             if (ImGui.button("\uF013", 22f, 22f)) {
                 ModSettings.getInstance().mod = this;

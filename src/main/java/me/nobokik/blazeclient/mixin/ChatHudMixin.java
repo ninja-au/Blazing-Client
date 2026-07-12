@@ -4,12 +4,12 @@ import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.api.hook.ChatHudHook;
 import me.nobokik.blazeclient.api.hook.IChatHudExt;
 import me.nobokik.blazeclient.mod.GeneralSettings;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.ChatHud;
-import net.minecraft.client.gui.hud.ChatHudLine;
-import net.minecraft.client.gui.hud.MessageIndicator;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.ChatHud;
+import net.minecraft.client.multiplayer.chat.GuiMessage.Line;
+import net.minecraft.client.gui.components.MessageIndicator;
 import net.minecraft.network.message.MessageSignatureData;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -42,11 +42,11 @@ public abstract class ChatHudMixin implements IChatHudExt {
     public abstract void clear(boolean clearHistory);
 
     @ModifyVariable(
-            method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V",
+            method = "addMessage(Lnet/minecraft/Component/Component;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V",
             at = @At("HEAD"),
             argsOnly = true
     )
-    private Text compactchat$compactChatMessage(Text message, Text parameterMessage, MessageSignatureData data, MessageIndicator indicator) {
+    private Component compactchat$compactChatMessage(Component message, Component parameterMessage, MessageSignatureData data, MessageIndicator indicator) {
         if (!Client.modManager().getMod(GeneralSettings.class).stackChatMessages.isEnabled()) {
             return message;
         }
@@ -74,7 +74,7 @@ public abstract class ChatHudMixin implements IChatHudExt {
     }
 
     @Inject(method = "render", at = @At("HEAD"))
-    private void render(DrawContext drawContext, int i, int j, int k, boolean bl, CallbackInfo ci) {
+    private void render(GuiGraphicsExtractor GuiGraphicsExtractor, int i, int j, int k, boolean bl, CallbackInfo ci) {
         if(Client.modManager().getMod(GeneralSettings.class).unlimitedChatHistory.isEnabled()) MAX_MESSAGES = 16384;
         else MAX_MESSAGES = 100;
     }

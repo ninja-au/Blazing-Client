@@ -4,7 +4,7 @@ import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.mod.GeneralSettings;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.SimpleOption;
-import net.minecraft.client.render.LightmapTextureManager;
+import net.minecraft.client.renderer.LightmapTextureManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;

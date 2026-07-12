@@ -6,8 +6,8 @@ import java.util.UUID;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,7 +20,7 @@ import static me.nobokik.blazeclient.Client.uuid;
 import static me.nobokik.blazeclient.api.helpers.CapeHelper.equippedCape;
 import static me.nobokik.blazeclient.api.helpers.CapeHelper.getEquippedCosmetic;
 
-@Mixin(PlayerListEntry.class)
+@Mixin(PlayerInfo.class)
 public final class PlayerListEntryMixin {
 
     //@Shadow @Final

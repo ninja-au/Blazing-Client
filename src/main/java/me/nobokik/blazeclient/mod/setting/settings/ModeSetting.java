@@ -64,7 +64,7 @@ public class ModeSetting extends Setting implements RenderableSetting {
 		for(String s : modes) {
 			ImGui.sameLine();
 			if(index != i) {
-				ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, 1f);
+				ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, 1f);
 				ImGui.pushStyleColor(ImGuiCol.Button, 0.05f, 0.05f, 0.11f, 0.65f);
 				ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.05f, 0.05f, 0.11f, 0.8f);
 				ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0.05f, 0.05f, 0.11f, 0.9f);
@@ -72,7 +72,7 @@ public class ModeSetting extends Setting implements RenderableSetting {
 				float[] c = JColor.getGuiColor().getFloatColor();
 				float[] c1 = JColor.getGuiColor().jBrighter().getFloatColor();
 				float[] c2 = JColor.getGuiColor().jDarker().getFloatColor();
-				ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, 1f);
+				ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, 1f);
 				ImGui.pushStyleColor(ImGuiCol.Button, c[0], c[1], c[2], 0.65f);
 				ImGui.pushStyleColor(ImGuiCol.ButtonHovered, c1[0], c1[1], c1[2], 0.8f);
 				ImGui.pushStyleColor(ImGuiCol.ButtonActive, c2[0], c2[1], c2[2], 0.9f);

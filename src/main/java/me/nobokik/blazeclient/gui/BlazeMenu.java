@@ -46,7 +46,7 @@ public class BlazeMenu implements Renderable {
                 float[] bColor = JColor.getGuiColor().jBrighter().getFloatColor();
                 float[] dColor = JColor.getGuiColor().jDarker().getFloatColor();
 
-                colors[ImGuiCol.Text]                   = new float[]{0.80f, 0.84f, 0.96f, 1.00f};
+                colors[ImGuiCol.Component]                   = new float[]{0.80f, 0.84f, 0.96f, 1.00f};
                 colors[ImGuiCol.TextDisabled]           = new float[]{0.42f, 0.44f, 0.53f, 1.00f};
                 colors[ImGuiCol.WindowBg]               = new float[]{0.07f, 0.07f, 0.11f, 1.00f};
                 colors[ImGuiCol.ChildBg]                = new float[]{0.09f, 0.09f, 0.13f, 1.00f};

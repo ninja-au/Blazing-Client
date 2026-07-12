@@ -4,8 +4,8 @@ import me.nobokik.blazeclient.api.event.events.KeyPressEvent;
 import me.nobokik.blazeclient.api.event.orbit.EventHandler;
 import me.nobokik.blazeclient.mod.Mod;
 import me.nobokik.blazeclient.mod.setting.settings.*;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.Minecraft;
+import com.mojang.blaze3d.platform.InputConstants;
 import org.lwjgl.glfw.GLFW;
 
 public class ZoomMod extends Mod {

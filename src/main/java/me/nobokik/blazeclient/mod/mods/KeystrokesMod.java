@@ -18,8 +18,8 @@ import me.nobokik.blazeclient.mod.setting.settings.BooleanSetting;
 import me.nobokik.blazeclient.mod.setting.settings.ColorSetting;
 import me.nobokik.blazeclient.mod.setting.settings.ModeSetting;
 import me.nobokik.blazeclient.mod.setting.settings.NumberSetting;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import org.lwjgl.glfw.GLFW;
 
 import static me.nobokik.blazeclient.Client.modManager;
@@ -28,12 +28,12 @@ import static me.nobokik.blazeclient.api.util.RenderUtils.isRenderable;
 public class KeystrokesMod extends Mod implements Renderable {
     private boolean firstFrame = true;
     public final ColorSetting background = new ColorSetting("Background Color", this, new JColor(0f, 0f, 0f, 0.75f), true);
-    public final ColorSetting text = new ColorSetting("Text Color", this, new JColor(1f, 1f, 1f), false);
+    public final ColorSetting Component = new ColorSetting("Component Color", this, new JColor(1f, 1f, 1f), false);
     public final ColorSetting pressedBackground = new ColorSetting("Pressed Background Color", this, new JColor(1f, 1f, 1f, 0.75f), true);
-    public final ColorSetting pressedText = new ColorSetting("Pressed Text Color", this, new JColor(0f, 0f, 0f), false);
+    public final ColorSetting pressedText = new ColorSetting("Pressed Component Color", this, new JColor(0f, 0f, 0f), false);
     public final BooleanSetting roundedCorners = new BooleanSetting("Rounded Corners", this, false);
 
-    public final BooleanSetting textShadow = new BooleanSetting("Text Shadow", this, true);
+    public final BooleanSetting textShadow = new BooleanSetting("Component Shadow", this, true);
     public final BooleanSetting mouseButtons = new BooleanSetting("Mouse Buttons", this, true);
     public final BooleanSetting spaceBar = new BooleanSetting("Space Bar", this, true);
     public final NumberSetting scale = new NumberSetting("Scale", this, 1, 0.5, 2, 0.1);
@@ -115,7 +115,7 @@ public class KeystrokesMod extends Mod implements Renderable {
         ImGui.begin(this.getName(), imGuiWindowFlags);
         ImGui.popStyleColor(2);
 
-        ImGui.pushStyleColor(ImGuiCol.Text, 1f,1f,1f, 1f);
+        ImGui.pushStyleColor(ImGuiCol.Component, 1f,1f,1f, 1f);
         ImGui.pushStyleColor(ImGuiCol.Button, 0f,0f,0f, 0f);
         ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0f,0f,0f, 0f);
         ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0f,0f,0f, 0f);
@@ -126,7 +126,7 @@ public class KeystrokesMod extends Mod implements Renderable {
         KeystrokeHelper.getHelper(GLFW.GLFW_KEY_W).drawButton();
         ImGui.sameLine();
 
-        ImGui.pushStyleColor(ImGuiCol.Text, 1f,1f,1f, 1f);
+        ImGui.pushStyleColor(ImGuiCol.Component, 1f,1f,1f, 1f);
         ImGui.pushStyleColor(ImGuiCol.Button, 0f,0f,0f, 0f);
         ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0f,0f,0f, 0f);
         ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0f,0f,0f, 0f);
@@ -153,7 +153,7 @@ public class KeystrokesMod extends Mod implements Renderable {
             ImGui.pushStyleColor(ImGuiCol.Button, 0.95f, 0.55f, 0.66f, 0f);
             ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.95f, 0.55f, 0.66f, 0f);
             ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0.95f, 0.55f, 0.66f, 0f);
-            ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, 0.9f);
+            ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, 0.9f);
             ImGui.setCursorPos(0, 0);
             if (ImGui.button("\uF013", 22f, 22f)) {
                 ModSettings.getInstance().mod = this;

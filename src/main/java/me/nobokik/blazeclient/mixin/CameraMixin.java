@@ -2,9 +2,9 @@ package me.nobokik.blazeclient.mixin;
 
 import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.mod.mods.FreelookMod;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.Camera;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Camera;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -42,7 +42,7 @@ public abstract class CameraMixin {
     @ModifyArg(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;moveBy(DDD)V", ordinal = 0), index = 0)
     private double correctDistance(double x) {
         if (Client.modManager().getMod(FreelookMod.class).isEnabled() && Client.modManager().getMod(FreelookMod.class).active
-                && MinecraftClient.getInstance().options.getPerspective().isFrontView()) {
+                && Minecraft.getInstance().options.getPerspective().isFrontView()) {
             return -clipToSpace(4);
         }
         return x;

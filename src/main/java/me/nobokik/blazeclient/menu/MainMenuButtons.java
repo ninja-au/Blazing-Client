@@ -7,18 +7,19 @@ import imgui.flag.ImGuiWindowFlags;
 import me.nobokik.blazeclient.gui.ImguiLoader;
 import me.nobokik.blazeclient.gui.Renderable;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.screen.DisconnectedScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.SplashOverlay;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
-import net.minecraft.client.gui.screen.option.AccessibilityOptionsScreen;
-import net.minecraft.client.gui.screen.option.OptionsScreen;
-import net.minecraft.client.gui.screen.world.SelectWorldScreen;
+import net.minecraft.SharedConstants;
+import net.minecraft.client.gui.screens.DisconnectedScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.SplashOverlay;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.gui.screens.MultiplayerScreen;
+import net.minecraft.client.gui.screens.AccessibilityOptionsScreen;
+import net.minecraft.client.gui.screens.OptionsScreen;
+import net.minecraft.client.gui.screens.SelectWorldScreen;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.network.chat.Component;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -95,14 +96,14 @@ public class MainMenuButtons implements Renderable {
         ImGui.getStyle().setFrameRounding(50f);
         ImGui.pushFont(ImguiLoader.getFontAwesome64());
 
-        ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, (float) percent);
+        ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, (float) percent);
         ImGui.pushStyleColor(ImGuiCol.Button, 0.07f, 0.07f, 0.11f, (float) (0.65f * percent));
         ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.09f, 0.09f, 0.15f, (float) (0.65f * percent));
         ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0.1f, 0.1f, 0.16f, (float) (0.8f * percent));
         if (ImGui.button("\uF007 Singleplayer", 450f, 100f)) {
             if (mc.getLevelStorage().getLevelList().isEmpty()) {
                 Screen screen = new SelectWorldScreen(new TitleScreen());
-                mc.setScreen(new DisconnectedScreen(screen, Text.of("Error!"), Text.of("World does not exist!")));
+                mc.setScreen(new DisconnectedScreen(screen, Component.of("Error!"), Component.of("World does not exist!")));
             } else {
                 mc.setScreen(new SelectWorldScreen(new TitleScreen()));
             }
@@ -127,8 +128,8 @@ public class MainMenuButtons implements Renderable {
         ImGui.setWindowPos(10, (float) mc.getWindow().getHeight() - 50);
 
         ImGui.pushFont(ImguiLoader.getDosisFont32());
-        ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, (float) (0.5f * percent));
-        ImGui.text("Blaze Client 1.21 (" + FabricLoader.getInstance().getModContainer("blaze-client").get().getMetadata().getVersion() + ")");
+        ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, (float) (0.5f * percent));
+        ImGui.text("Blaze Client " + SharedConstants.getGameVersion().getName() + " (" + FabricLoader.getInstance().getModContainer("blaze-client").get().getMetadata().getVersion() + ")");
         ImGui.popFont();
         ImGui.popStyleColor();
 
@@ -155,7 +156,7 @@ public class MainMenuButtons implements Renderable {
         ImGui.getStyle().setButtonTextAlign(0.5f, 0.5f);
         ImGui.getStyle().setFrameRounding(25f);
         ImGui.pushFont(ImguiLoader.getFontAwesome64());
-        ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, (float) percent);
+        ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, (float) percent);
         ImGui.pushStyleColor(ImGuiCol.Button, 0.07f, 0.07f, 0.11f, (float) (0.65f * percent));
         ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.09f, 0.09f, 0.15f, (float) (0.65f * percent));
         ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0.1f, 0.1f, 0.16f, (float) (0.8f * percent));

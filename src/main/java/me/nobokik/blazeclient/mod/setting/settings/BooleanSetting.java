@@ -49,17 +49,17 @@ public class BooleanSetting extends Setting implements RenderableSetting {
 		//ImGui.pushStyleColor(ImGuiCol.Button, 0, 0, 0, 0);
 		//ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0, 0, 0, 0);
 		//ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0, 0, 0, 0);
-		//ImGui.pushStyleColor(ImGuiCol.Text, color[0], color[1], color[2], 0f);
+		//ImGui.pushStyleColor(ImGuiCol.Component, color[0], color[1], color[2], 0f);
 		//ImGui.pushFont(ImguiLoader.getFontAwesome48());
 		//ImVec2 pos = ImGui.getCursorPos().clone();
 		//ImGui.setCursorPos(pos.x, pos.y-6);
 		//ImGui.text(this.enabled ? "\uF205" : "\uF204");
 		//ImGui.popStyleColor(1);
 		//if(ImGui.isItemHovered()) {
-		//	ImGui.pushStyleColor(ImGuiCol.Text, color[0], color[1], color[2], 0.7f);
+		//	ImGui.pushStyleColor(ImGuiCol.Component, color[0], color[1], color[2], 0.7f);
 		//	if(ImGui.isMouseClicked(0)) toggle();
 		//} else {
-		//	ImGui.pushStyleColor(ImGuiCol.Text, color[0], color[1], color[2], 1f);
+		//	ImGui.pushStyleColor(ImGuiCol.Component, color[0], color[1], color[2], 1f);
 		//}
 		//ImGui.setCursorPos(pos.x, pos.y-6);
 		//ImGui.text(this.enabled ? "\uF205" : "\uF204");
@@ -82,9 +82,9 @@ public class BooleanSetting extends Setting implements RenderableSetting {
 		}
 		ImVec2 pos2 = ImGui.getCursorPos().clone();
 		if(ImGui.isItemHovered()) {
-			ImGui.pushStyleColor(ImGuiCol.Text, color[0], color[1], color[2], 0.7f);
+			ImGui.pushStyleColor(ImGuiCol.Component, color[0], color[1], color[2], 0.7f);
 		} else {
-			ImGui.pushStyleColor(ImGuiCol.Text, color[0], color[1], color[2], 1f);
+			ImGui.pushStyleColor(ImGuiCol.Component, color[0], color[1], color[2], 1f);
 		}
 		ImGui.pushFont(ImguiLoader.getFontAwesome32());
 		ImGui.setCursorPos(pos.x, pos.y);

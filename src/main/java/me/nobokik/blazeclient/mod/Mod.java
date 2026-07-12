@@ -13,13 +13,13 @@ import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.gui.ImguiLoader;
 import me.nobokik.blazeclient.mod.setting.RenderableSetting;
 import me.nobokik.blazeclient.mod.setting.Setting;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.Nullable;
 
-import static me.nobokik.blazeclient.menu.ModSettings.text;
+import static me.nobokik.blazeclient.menu.ModSettings.Component;
 
 public abstract class Mod {
-    protected MinecraftClient mc = MinecraftClient.getInstance();
+    protected Minecraft mc = Minecraft.getInstance();
 
     public String name, description, icon;
     public List<Setting> settings = new ArrayList<>();
@@ -127,7 +127,7 @@ public abstract class Mod {
         double percent;
         if(p == null) percent = 1;
         else percent = p[0];
-        text("Settings", 1f);
+        Component("Settings", 1f);
 
         ImGui.getStyle().setChildRounding(15f);
         ImGui.getStyle().setWindowPadding(15f, 15f);

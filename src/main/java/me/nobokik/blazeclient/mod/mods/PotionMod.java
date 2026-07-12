@@ -19,11 +19,11 @@ import me.nobokik.blazeclient.mod.setting.settings.BooleanSetting;
 import me.nobokik.blazeclient.mod.setting.settings.ColorSetting;
 import me.nobokik.blazeclient.mod.setting.settings.ModeSetting;
 import me.nobokik.blazeclient.mod.setting.settings.NumberSetting;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffectUtil;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.world.effect.StatusEffectInstance;
+import net.minecraft.world.effect.StatusEffectUtil;
+import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +33,9 @@ import static me.nobokik.blazeclient.api.util.RenderUtils.isRenderable;
 
 public class PotionMod extends Mod implements Renderable {
     private boolean firstFrame = true;
-    public final ColorSetting text = new ColorSetting("Text Color", this, new JColor(1f, 1f, 1f), false);
-    public final ColorSetting durationText = new ColorSetting("Duration Text Color", this, new JColor(0.7f, 0.7f, 0.7f), false);
-    public final BooleanSetting textShadow = new BooleanSetting("Text Shadow", this, true);
+    public final ColorSetting Component = new ColorSetting("Component Color", this, new JColor(1f, 1f, 1f), false);
+    public final ColorSetting durationText = new ColorSetting("Duration Component Color", this, new JColor(0.7f, 0.7f, 0.7f), false);
+    public final BooleanSetting textShadow = new BooleanSetting("Component Shadow", this, true);
     public final NumberSetting scale = new NumberSetting("Scale", this, 1, 0.5, 2, 0.1);
     public final ModeSetting fontSetting = new ModeSetting("Font", this, "Minecraft", "Minecraft", "Dosis", "Mono");
     public final BooleanSetting hideVanilla = new BooleanSetting("Hide Vanilla Potions", this, true);
@@ -107,44 +107,44 @@ public class PotionMod extends Mod implements Renderable {
         if(mc.player != null) {
             List<StatusEffectInstance> effects = new ArrayList<>(mc.player.getStatusEffects());
             for (StatusEffectInstance effect : effects) {
-                String name = Text.translatable(effect.getTranslationKey()).getString();
+                String name = Component.translatable(effect.getTranslationKey()).getString();
                 if (textShadow.isEnabled()) {
-                    c = text.getColor().getFloatColor();
-                    ImGui.pushStyleColor(ImGuiCol.Text, c[0], c[1], c[2], c[3]);
+                    c = Component.getColor().getFloatColor();
+                    ImGui.pushStyleColor(ImGuiCol.Component, c[0], c[1], c[2], c[3]);
                     UI.shadowText( name + " " + (effect.getAmplifier() + 1), 32, c[0], c[1], c[2], c[3]);
                     ImGui.popStyleColor(1);
                     c = durationText.getColor().getFloatColor();
-                    ImGui.pushStyleColor(ImGuiCol.Text, c[0], c[1], c[2], c[3]);
+                    ImGui.pushStyleColor(ImGuiCol.Component, c[0], c[1], c[2], c[3]);
                     UI.shadowText(StatusEffectUtil.getDurationText(effect, 1, 20).getString(), 32, c[0], c[1], c[2], c[3]);
                     ImGui.popStyleColor(1);
                 } else {
-                    c = text.getColor().getFloatColor();
-                    ImGui.pushStyleColor(ImGuiCol.Text, c[0], c[1], c[2], c[3]);
+                    c = Component.getColor().getFloatColor();
+                    ImGui.pushStyleColor(ImGuiCol.Component, c[0], c[1], c[2], c[3]);
                     ImGui.text(name + " " + (effect.getAmplifier() + 1));
                     ImGui.popStyleColor(1);
                     c = durationText.getColor().getFloatColor();
-                    ImGui.pushStyleColor(ImGuiCol.Text, c[0], c[1], c[2], c[3]);
+                    ImGui.pushStyleColor(ImGuiCol.Component, c[0], c[1], c[2], c[3]);
                     ImGui.text(StatusEffectUtil.getDurationText(effect, 1, 20).getString());
                     ImGui.popStyleColor(1);
                 }
             }
         } else {
             if (textShadow.isEnabled()) {
-                c = text.getColor().getFloatColor();
-                ImGui.pushStyleColor(ImGuiCol.Text, c[0], c[1], c[2], c[3]);
+                c = Component.getColor().getFloatColor();
+                ImGui.pushStyleColor(ImGuiCol.Component, c[0], c[1], c[2], c[3]);
                 UI.shadowText("Speed 2", 32, c[0], c[1], c[2], c[3]);
                 ImGui.popStyleColor(1);
                 c = durationText.getColor().getFloatColor();
-                ImGui.pushStyleColor(ImGuiCol.Text, c[0], c[1], c[2], c[3]);
+                ImGui.pushStyleColor(ImGuiCol.Component, c[0], c[1], c[2], c[3]);
                 UI.shadowText("00:00", 32, c[0], c[1], c[2], c[3]);
                 ImGui.popStyleColor(1);
             } else {
-                c = text.getColor().getFloatColor();
-                ImGui.pushStyleColor(ImGuiCol.Text, c[0], c[1], c[2], c[3]);
+                c = Component.getColor().getFloatColor();
+                ImGui.pushStyleColor(ImGuiCol.Component, c[0], c[1], c[2], c[3]);
                 ImGui.text("Speed 2");
                 ImGui.popStyleColor(1);
                 c = durationText.getColor().getFloatColor();
-                ImGui.pushStyleColor(ImGuiCol.Text, c[0], c[1], c[2], c[3]);
+                ImGui.pushStyleColor(ImGuiCol.Component, c[0], c[1], c[2], c[3]);
                 ImGui.text("00:00");
                 ImGui.popStyleColor(1);
             }
@@ -162,7 +162,7 @@ public class PotionMod extends Mod implements Renderable {
             ImGui.pushStyleColor(ImGuiCol.Button, 0.95f, 0.55f, 0.66f, 0f);
             ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.95f, 0.55f, 0.66f, 0f);
             ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0.95f, 0.55f, 0.66f, 0f);
-            ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, 0.9f);
+            ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, 0.9f);
             ImGui.setCursorPos(0, 0);
             if (ImGui.button("\uF013", 22f, 22f)) {
                 ModSettings.getInstance().mod = this;

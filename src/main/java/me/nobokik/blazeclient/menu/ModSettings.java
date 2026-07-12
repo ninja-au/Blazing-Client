@@ -135,7 +135,7 @@ public class ModSettings implements Renderable {
         ImGui.pushFont(ImguiLoader.getDosisFont32());
         ImVec2 pos = ImGui.getCursorPos();
         ImGui.setCursorPos(pos.x + 40, pos.y + 16);
-        ImGui.pushStyleColor(ImGuiCol.Text, 0.75f, 0.79f, 0.91f, (float) percent);
+        ImGui.pushStyleColor(ImGuiCol.Component, 0.75f, 0.79f, 0.91f, (float) percent);
         ImGui.text(mod.getDescription());
         ImGui.popStyleColor(1);
         ImGui.popFont();
@@ -177,9 +177,9 @@ public class ModSettings implements Renderable {
         ImGui.end();
     }
 
-    public static void text(String text, double percent) {
+    public static void Component(String Component, double percent) {
         float[] color = JColor.getGuiColor().getFloatColor();
-        ImGui.pushStyleColor(ImGuiCol.Text, color[0], color[1], color[2], (float) percent);
+        ImGui.pushStyleColor(ImGuiCol.Component, color[0], color[1], color[2], (float) percent);
         ImGui.pushFont(ImguiLoader.getBoldDosisFont48());
         ImGui.text("| ");
         ImGui.popFont();
@@ -189,7 +189,7 @@ public class ModSettings implements Renderable {
         ImGui.sameLine();
         ImVec2 pos = ImGui.getCursorPos();
         ImGui.setCursorPos(pos.x, pos.y + 10);
-        ImGui.text(text);
+        ImGui.text(Component);
         ImGui.popFont();
     }
 
@@ -225,7 +225,7 @@ public class ModSettings implements Renderable {
                 float[] bColor = JColor.getGuiColor().jBrighter().getFloatColor();
                 float[] dColor = JColor.getGuiColor().jDarker().getFloatColor();
 
-                colors[ImGuiCol.Text]                   = new float[]{0.80f, 0.84f, 0.96f, 1.00f};
+                colors[ImGuiCol.Component]                   = new float[]{0.80f, 0.84f, 0.96f, 1.00f};
                 colors[ImGuiCol.TextDisabled]           = new float[]{0.42f, 0.44f, 0.53f, 1.00f};
                 colors[ImGuiCol.WindowBg]               = new float[]{0.07f, 0.07f, 0.11f, 1.00f};
                 colors[ImGuiCol.ChildBg]                = new float[]{0.07f, 0.07f, 0.11f, 0.7f};

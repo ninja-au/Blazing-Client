@@ -2,7 +2,7 @@ package me.nobokik.blazeclient.mixin;
 
 import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.mod.mods.FreelookMod;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

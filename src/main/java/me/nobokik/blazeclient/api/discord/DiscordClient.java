@@ -4,7 +4,7 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import club.minnced.discord.rpc.DiscordUser;
-import com.mojang.authlib.minecraft.client.MinecraftClient;
+import com.mojang.authlib.minecraft.client.Minecraft;
 import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.mod.GeneralSettings;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;

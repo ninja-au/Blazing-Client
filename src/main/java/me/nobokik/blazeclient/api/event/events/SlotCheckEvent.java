@@ -1,7 +1,7 @@
 package me.nobokik.blazeclient.api.event.events;
 
 import me.nobokik.blazeclient.api.event.Cancellable;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.screens.inventory.HandledScreen;
 import net.minecraft.screen.slot.Slot;
 
 @SuppressWarnings("all")

@@ -1,16 +1,16 @@
 package me.nobokik.blazeclient.mixin;
 
 import net.fabricmc.fabric.api.client.screen.v1.Screens;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.SplashTextRenderer;
-import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.SplashTextRenderer;
+import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,7 +28,7 @@ public class TitleScreenMixin extends Screen {
     //private static Identifier PANORAMA_OVERLAY;
     @Shadow @Nullable @Mutable
     private SplashTextRenderer splashText;
-    protected TitleScreenMixin(Text title) {
+    protected TitleScreenMixin(Component title) {
         super(title);
     }
 
@@ -39,12 +39,12 @@ public class TitleScreenMixin extends Screen {
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    protected void renderLogo(DrawContext drawContext, int i, int j, float f, CallbackInfo ci) {
-        drawContext.drawTexture(Identifier.of("blaze-client", "icon.png"), 200,200,0,0,0,0);
+    protected void renderLogo(GuiGraphicsExtractor GuiGraphicsExtractor, int i, int j, float f, CallbackInfo ci) {
+        GuiGraphicsExtractor.drawTexture(Identifier.of("blaze-client", "icon.png"), 200,200,0,0,0,0);
 
         int size = 256/(int)mc.getWindow().getScaleFactor();
 
-        drawContext.drawTexture(Identifier.of("blaze-client", "icon.png"), 50/(int)mc.getWindow().getScaleFactor(), 50/(int)mc.getWindow().getScaleFactor(), 0, 0, size,size,size,size);
+        GuiGraphicsExtractor.drawTexture(Identifier.of("blaze-client", "icon.png"), 50/(int)mc.getWindow().getScaleFactor(), 50/(int)mc.getWindow().getScaleFactor(), 0, 0, size,size,size,size);
     }
     @Inject(method = "init", at = @At("TAIL"))
     protected void removeButtons(CallbackInfo info) {

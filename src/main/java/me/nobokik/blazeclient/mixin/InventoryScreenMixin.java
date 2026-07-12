@@ -3,16 +3,16 @@ package me.nobokik.blazeclient.mixin;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.mod.GeneralSettings;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.gui.screen.recipebook.RecipeBookProvider;
-import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.inventory.AbstractInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.recipebook.RecipeBookProvider;
+import net.minecraft.client.gui.screens.recipebook.RecipeBookWidget;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.entity.player.PlayerInventory;
 import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,8 +25,8 @@ import static me.nobokik.blazeclient.Client.mc;
 @Mixin(InventoryScreen.class)
 public abstract class InventoryScreenMixin extends AbstractInventoryScreen<PlayerScreenHandler> implements RecipeBookProvider {
 
-    public InventoryScreenMixin(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
-        super(screenHandler, playerInventory, text);
+    public InventoryScreenMixin(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Component Component) {
+        super(screenHandler, playerInventory, Component);
     }
 
 
@@ -39,21 +39,21 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
     @Shadow
     private float mouseY;
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    public void render(DrawContext drawContext, int i, int j, float f, CallbackInfo ci) {
+    public void render(GuiGraphicsExtractor GuiGraphicsExtractor, int i, int j, float f, CallbackInfo ci) {
         ci.cancel();
         if (this.recipeBook.isOpen() && this.narrow) {
-            this.renderBackground(drawContext, i, j, f);
-            this.recipeBook.render(drawContext, i, j, f);
+            this.renderBackground(GuiGraphicsExtractor, i, j, f);
+            this.recipeBook.render(GuiGraphicsExtractor, i, j, f);
         } else {
-            super.render(drawContext, i, j, f);
-            this.recipeBook.render(drawContext, i, j, f);
-            this.recipeBook.drawGhostSlots(drawContext, this.x, this.y, false, f);
+            super.render(GuiGraphicsExtractor, i, j, f);
+            this.recipeBook.render(GuiGraphicsExtractor, i, j, f);
+            this.recipeBook.drawGhostSlots(GuiGraphicsExtractor, this.x, this.y, false, f);
         }
 
-        drawContext.drawTexture(Identifier.of("blaze-client", "blazetext.png"), 0, mc.getWindow().getScaledHeight() - 32, 0, 0, 167, 28, 167, 28);
+        GuiGraphicsExtractor.drawTexture(Identifier.of("blaze-client", "blazetext.png"), 0, mc.getWindow().getScaledHeight() - 32, 0, 0, 167, 28, 167, 28);
 
-        this.drawMouseoverTooltip(drawContext, i, j);
-        this.recipeBook.drawTooltip(drawContext, this.x, this.y, i, j);
+        this.drawMouseoverTooltip(GuiGraphicsExtractor, i, j);
+        this.recipeBook.drawTooltip(GuiGraphicsExtractor, this.x, this.y, i, j);
         this.mouseX = (float)i;
         this.mouseY = (float)j;
     }

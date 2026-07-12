@@ -195,8 +195,8 @@ public class CosmeticsMenu implements Renderable {
     }
 
     private static void cosmeticButton(String id, double percent) {
-        String text = capes.get(id);
-        if(text == null) return;
+        String Component = capes.get(id);
+        if(Component == null) return;
         boolean isEnabled = equippedCape.equals(id);
 
         ImGui.pushFont(ImguiLoader.getDosisFont32());
@@ -232,15 +232,15 @@ public class CosmeticsMenu implements Renderable {
 
         ImGui.getStyle().setFrameRounding(10f);
         if(isEnabled) {
-            ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, (float) percent);
+            ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, (float) percent);
         } else {
-            ImGui.pushStyleColor(ImGuiCol.Text, 0.75f, 0.79f, 0.91f, (float) percent);
+            ImGui.pushStyleColor(ImGuiCol.Component, 0.75f, 0.79f, 0.91f, (float) percent);
         }
         ImGui.pushStyleColor(ImGuiCol.Button, 0.08f, 0.08f, 0.12f, (float) (0.65f * percent));
         ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.1f, 0.1f, 0.16f, (float) (0.7f * percent));
         ImGui.pushStyleColor(ImGuiCol.ButtonActive, 0.11f, 0.11f, 0.17f, (float) (0.8f * percent));
 
-        ImGui.button(isEnabled ? "\uF00C  " + text : "\uF553 " + text, 269f, 70f);
+        ImGui.button(isEnabled ? "\uF00C  " + Component : "\uF553 " + Component, 269f, 70f);
 
         pos = ImGui.getCursorPos();
         ImGui.setCursorPos(pos.x, pos.y - 4);
@@ -262,7 +262,7 @@ public class CosmeticsMenu implements Renderable {
                 float[] bColor = JColor.getGuiColor().jBrighter().getFloatColor();
                 float[] dColor = JColor.getGuiColor().jDarker().getFloatColor();
 
-                colors[ImGuiCol.Text]                   = new float[]{0.80f, 0.84f, 0.96f, 1.00f};
+                colors[ImGuiCol.Component]                   = new float[]{0.80f, 0.84f, 0.96f, 1.00f};
                 colors[ImGuiCol.TextDisabled]           = new float[]{0.42f, 0.44f, 0.53f, 1.00f};
                 colors[ImGuiCol.WindowBg]               = new float[]{0.07f, 0.07f, 0.11f, 1.00f};
                 colors[ImGuiCol.ChildBg]                = new float[]{0.09f, 0.09f, 0.13f, 1.00f};

@@ -3,8 +3,8 @@ package me.nobokik.blazeclient.api.util;
 import imgui.ImGui;
 import me.nobokik.blazeclient.menu.FirstMenu;
 import me.nobokik.blazeclient.mod.GeneralSettings;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 
 import static me.nobokik.blazeclient.Client.mc;
 import static me.nobokik.blazeclient.Client.modManager;

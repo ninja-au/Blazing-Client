@@ -7,7 +7,7 @@ import me.nobokik.blazeclient.api.event.events.MouseUpdateEvent;
 import me.nobokik.blazeclient.api.helpers.KeystrokeHelper;
 import me.nobokik.blazeclient.menu.*;
 import me.nobokik.blazeclient.mod.mods.ZoomMod;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.Mouse;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;

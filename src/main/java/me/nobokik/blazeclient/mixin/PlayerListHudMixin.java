@@ -5,13 +5,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.api.helpers.IndicatorHelper;
 import me.nobokik.blazeclient.mod.GeneralSettings;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.PlayerListHud;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.StringVisitable;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.PlayerListHud;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.Component.StringVisitable;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.GameMode;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,15 +29,15 @@ import static me.nobokik.blazeclient.Client.mc;
 public abstract class PlayerListHudMixin {
     private GameProfile profile;
 
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;getWidth(Lnet/minecraft/text/StringVisitable;)I"))
-    public int getWidth(TextRenderer instance, StringVisitable text) {
+    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/Font;getWidth(Lnet/minecraft/Component/StringVisitable;)I"))
+    public int getWidth(Font instance, StringVisitable Component) {
         if (profile != null && IndicatorHelper.isUsingClient(profile.getId()))
-            return instance.getWidth(text) + 10;
-        return instance.getWidth(text);
+            return instance.getWidth(Component) + 10;
+        return instance.getWidth(Component);
     }
 
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I"))
-    public int drawTextWithShadow(DrawContext instance, TextRenderer textRenderer, Text text, int i, int j, int k) {
+    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;drawTextWithShadow(Lnet/minecraft/client/font/Font;Lnet/minecraft/Component/Component;III)I"))
+    public int drawTextWithShadow(GuiGraphicsExtractor instance, Font Font, Component Component, int i, int j, int k) {
         if (profile != null && IndicatorHelper.isUsingClient(profile.getId())) {
             RenderSystem.setShaderTexture(0, IndicatorHelper.badgeIcon);
             RenderSystem.setShaderColor(1, 1, 1, 1);
@@ -45,32 +45,32 @@ public abstract class PlayerListHudMixin {
             i += 9;
         }
         profile = null;
-        return instance.drawTextWithShadow(textRenderer, text, i, j, k);
+        return instance.drawTextWithShadow(Font, Component, i, j, k);
     }
 
-    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/PlayerListHud;getPlayerName(Lnet/minecraft/client/network/PlayerListEntry;)Lnet/minecraft/text/Text;"))
-    public PlayerListEntry getPlayerName(PlayerListEntry playerEntry) {
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/PlayerListHud;getPlayerName(Lnet/minecraft/client/network/PlayerInfo;)Lnet/minecraft/Component/Component;"))
+    public PlayerInfo getPlayerName(PlayerInfo playerEntry) {
         profile = playerEntry.getProfile();
         return playerEntry;
     }
 
     @Inject(method = "renderLatencyIcon", at = @At("HEAD"), cancellable = true)
-    public void renderLatencyIcon(DrawContext drawContext, int i, int j, int k, PlayerListEntry playerListEntry, CallbackInfo ci) {
+    public void renderLatencyIcon(GuiGraphicsExtractor GuiGraphicsExtractor, int i, int j, int k, PlayerInfo PlayerInfo, CallbackInfo ci) {
         if (Client.modManager().getMod(GeneralSettings.class).numericalPing.isEnabled()) {
             ci.cancel();
 
-            String pingString = Integer.toString(playerListEntry.getLatency());
+            String pingString = Integer.toString(PlayerInfo.getLatency());
             pingString = shiftPing(pingString);
             if(Client.modManager().getMod(GeneralSettings.class).msPing.isEnabled()) pingString = pingString + "ms";
 
-            drawContext.getMatrices().push();
-            drawContext.getMatrices().translate(0, 0, 100);
+            GuiGraphicsExtractor.getMatrices().push();
+            GuiGraphicsExtractor.getMatrices().translate(0, 0, 100);
 
-            drawContext.drawTextWithShadow(mc.textRenderer, pingString,
-                    j + i - mc.textRenderer.getWidth(pingString) - 1, k - (Client.modManager().getMod(GeneralSettings.class).smallPing.isEnabled() ? 2 : 0),
-                    getPingColour(playerListEntry.getLatency()));
+            GuiGraphicsExtractor.drawTextWithShadow(mc.Font, pingString,
+                    j + i - mc.Font.getWidth(pingString) - 1, k - (Client.modManager().getMod(GeneralSettings.class).smallPing.isEnabled() ? 2 : 0),
+                    getPingColour(PlayerInfo.getLatency()));
 
-            drawContext.getMatrices().pop();
+            GuiGraphicsExtractor.getMatrices().pop();
         }
     }
 

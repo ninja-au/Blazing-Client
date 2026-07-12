@@ -1,8 +1,8 @@
 package me.nobokik.blazeclient.api.discord;
 
-import net.minecraft.client.gui.screen.*;
-import net.minecraft.client.gui.screen.multiplayer.ConnectScreen;
-import net.minecraft.client.gui.screen.world.LevelLoadingScreen;
+import net.minecraft.client.gui.screens.*;
+import net.minecraft.client.gui.screens.ConnectScreen;
+import net.minecraft.client.gui.screens.LevelLoadingScreen;
 
 import static me.nobokik.blazeclient.Client.mc;
 

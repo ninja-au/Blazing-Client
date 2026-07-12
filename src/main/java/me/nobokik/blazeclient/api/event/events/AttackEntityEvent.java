@@ -1,7 +1,7 @@
 package me.nobokik.blazeclient.api.event.events;
 
 import me.nobokik.blazeclient.api.event.Cancellable;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 
 @SuppressWarnings("all")
 public class AttackEntityEvent extends Cancellable {

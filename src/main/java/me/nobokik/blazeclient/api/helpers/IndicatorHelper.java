@@ -5,17 +5,17 @@ import com.google.gson.JsonObject;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.nobokik.blazeclient.Client;
 import me.nobokik.blazeclient.mod.GeneralSettings;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.render.*;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.renderer.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.PlayerEntity;
 import net.minecraft.scoreboard.Team;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import org.joml.Matrix4f;
 
 import java.io.*;
@@ -45,15 +45,15 @@ public class IndicatorHelper {
         return sb.toString();
     }
 
-    public static void addBadge(Entity entity, MatrixStack matrices, VertexConsumerProvider vertexConsumers) {
+    public static void addBadge(Entity entity, PoseStack matrices, VertexConsumerProvider vertexConsumers) {
         if(!Client.modManager().getMod(GeneralSettings.class).showClientBadges.isEnabled()) return;
         if (entity instanceof PlayerEntity && !entity.isSneaky()) {
             if (isUsingClient(entity.getUuid())) {
                 RenderSystem.enableDepthTest();
                 RenderSystem.setShaderTexture(0, badgeIcon);
 
-                assert MinecraftClient.getInstance().player != null;
-                int x = -(MinecraftClient.getInstance().textRenderer
+                assert Minecraft.getInstance().player != null;
+                int x = -(Minecraft.getInstance().Font
                         .getWidth(
                                 (Team.decorateName(entity.getScoreboardTeam(), entity.getName())
                                         .getString()))
@@ -65,8 +65,8 @@ public class IndicatorHelper {
 
     public static boolean isUsingClient(UUID u) {
         if(!Client.modManager().getMod(GeneralSettings.class).showClientBadges.isEnabled()) return false;
-        assert MinecraftClient.getInstance().player != null;
-        if (u == MinecraftClient.getInstance().player.getUuid()) {
+        assert Minecraft.getInstance().player != null;
+        if (u == Minecraft.getInstance().player.getUuid()) {
             return true;
         } else {
             return clientUsers.contains(u);
@@ -87,7 +87,7 @@ public class IndicatorHelper {
                 connection.setDoOutput(true);
 
                 JsonObject jsonObject = new JsonObject();
-                for (PlayerListEntry entry : Objects.requireNonNull(mc.getNetworkHandler()).getPlayerList()) {
+                for (PlayerInfo entry : Objects.requireNonNull(mc.getNetworkHandler()).getPlayerList()) {
                     jsonObject.addProperty(entry.getProfile().getId().toString(), "false");
                 }
                 String jsonInputString = jsonObject.toString();
@@ -102,7 +102,7 @@ public class IndicatorHelper {
                     String response = readAll(br);
                     JsonObject convertedResponse = GSON.fromJson(response, JsonObject.class);
                     //System.out.println(convertedResponse.toString());
-                    for (PlayerListEntry entry : Objects.requireNonNull(mc.getNetworkHandler()).getPlayerList()) {
+                    for (PlayerInfo entry : Objects.requireNonNull(mc.getNetworkHandler()).getPlayerList()) {
                         if (convertedResponse.get(entry.getProfile().getId().toString()).getAsString().equals("true"))
                             clientUsers.add(entry.getProfile().getId());
                         else clientUsers.remove(entry.getProfile().getId());

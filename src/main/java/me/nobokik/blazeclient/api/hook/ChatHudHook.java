@@ -1,7 +1,7 @@
 package me.nobokik.blazeclient.api.hook;
 
 import me.nobokik.blazeclient.api.util.TextUtil;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import java.util.HashMap;
 
@@ -11,12 +11,12 @@ public class ChatHudHook {
     /**
      * A historical map of all chat messages sent, mapped to their wrapper class
      */
-    private final HashMap<Text, ChatMessage> chatMessages = new HashMap<>();
+    private final HashMap<Component, ChatMessage> chatMessages = new HashMap<>();
 
     /**
      * The previous message received by the client
      */
-    private Text previousMessage = null;
+    private Component previousMessage = null;
 
     public ChatHudHook(IChatHudExt chatHud) {
         this.chatHud = chatHud;
@@ -25,7 +25,7 @@ public class ChatHudHook {
     /**
      * Returns the modified (if applicable) chat message.
      */
-    public Text compactChatMessage(Text message) {
+    public Component compactChatMessage(Component message) {
         // We only use the message without timestamps when comparing to the previous/other messages.
         // This is because the timestamps are not part of the message, and thus should not be used for comparison.
         // However, we do want to keep the timestamps in the message, so we can't remove them from the message.
@@ -53,7 +53,7 @@ public class ChatHudHook {
      * If the option is enabled, common separators will be ignored.
      * A message is a common separator if it contains ====== or -------
      */
-    private boolean shouldIgnoreCommonSeparator(Text message) {
+    private boolean shouldIgnoreCommonSeparator(Component message) {
         var trimmedString = message.getString().trim();
         return trimmedString.isEmpty()
                 || trimmedString.isBlank()
@@ -64,7 +64,7 @@ public class ChatHudHook {
     /**
      * Removes a message (and its occurrences modifications) from the Chat HUD.
      */
-    public void removeMessage(Text originalMessage, ChatMessage message) {
+    public void removeMessage(Component originalMessage, ChatMessage message) {
         var iterator = this.chatHud.compactchat$getMessages().listIterator();
         while (iterator.hasNext()) {
             var chatHudLine = iterator.next();

@@ -92,7 +92,7 @@ public class SideMenu implements Renderable {
     }
 
     private void renderButton(String icon, String name, double percent) {
-        ImGui.pushStyleColor(ImGuiCol.Text, 0.80f, 0.84f, 0.96f, (float) percent);
+        ImGui.pushStyleColor(ImGuiCol.Component, 0.80f, 0.84f, 0.96f, (float) percent);
         if(!selectedWindow.equals(name)) {
             ImGui.pushStyleColor(ImGuiCol.Button, 0.07f, 0.07f, 0.11f, (float) (0.6f * percent));
             ImGui.pushStyleColor(ImGuiCol.ButtonHovered, 0.09f, 0.09f, 0.15f, (float) (0.7f * percent));
